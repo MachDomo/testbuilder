@@ -9,40 +9,81 @@
 
 var detectNetwork = function(cardNumber) {
   // Note: `cardNumber` will always be a string
-  // The Diner's Club network always starts with a 38 or 39 and is 14 digits long
-  // The American Express network always starts with a 34 or 37 and is 15 digits long
+
+
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
-  var cardArray = Array.from(cardNumber);
-  var cardLength = cardArray.length;
+  var cardLength = cardNumber.length;
 
-  if(cardArray[0] == 3) {
-    if((cardArray[1] == 8 || cardArray[1] == 9) && cardLength === 14) {
-        return "Diner's Club";
+  var cardPrefixCheck = function(prefix) {
+    return cardNumber.startsWith(prefix);
+    };
 
-    } else if((cardArray[1] == 4 || cardArray[1] == 7) && cardLength === 15) {
-            return "American Express";
+  var cardPrefixRangeCheck = function(start, end) {
+    for (var prefix = start; prefix <= end; prefix++) {
+      if(cardPrefixCheck(prefix)) {
+        return true;
+      }
     }
-    } else if (cardArray[0] == 4) {
-            if (cardLength === 13 || cardLength === 16 || cardLength === 19) {
-                return "Visa";
-        }
-    } else if (cardArray[0] == 5) {
-            if (cardArray[1] >= 1 && cardArray[1] <= 6 && cardLength === 16) {
-                return "MasterCard";
-            }
+      return false;
+  };
 
-    } else if (cardArray[0] == 6) {
-                if (cardArray[1] == 0) {
-                    if(cardArray[2] == 1) {
-                        if(cardArray[3] == 1) {
-                            if(cardLength === 16 || cardLength === 19) {
-                                return "Discover";
-                            }
-                        }
-                    }
-        }
-    } else return "Invalid Card";
+  var cardPrefixArrayCheck = function(array) {
+    for (var i = 0; i < array.length; i++) {
+      if(cardPrefixCheck(array[i])) {
+        return true;
+      }
+    } return false;
+  };
+
+  var cardLengthArrayCheck = function(array) {
+    for (var i = 0; i < array.length; i++) {
+      if(cardLength === array[i]) {
+          return true;
+      }
+    } return false;
+  };
+    
+  // The Diner's Club network always starts with a 38 or 39 and is 14 digits long
+  var dinerPrefix = [38, 39];
+
+  if((cardPrefixArrayCheck(dinerPrefix)) && cardLength === 14) {
+    return 'Diner\'s Club';
+  };
+
+
+
+  // The American Express network always starts with a 34 or 37 and is 15 digits long
+  var amexPrefix = [34, 37];
+  if((cardPrefixArrayCheck(amexPrefix))) {
+    return 'American Express';
+  }
+
+
+
+  //Visa always has a prefix of 4 and a length of 13, 16, or 19.
+  
+  if(cardPrefixCheck(4) && cardLengthArrayCheck([13, 16, 19])) {
+    return 'Visa';
+  }
+
+
+
+
+  //MasterCard always has a prefix of 51, 52, 53, 54, or 55 and a length of 16.
+  var masterCardArray = [51, 52, 53, 54, 55]
+  if(cardPrefixArrayCheck(masterCardArray) && cardLength === 16) {
+    return 'MasterCard';
+  }
+
+
+  
+    //Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
+    // } else if (cardPrefixCheck('6011') || cardPrefixCheck('65') || cardPrefixRangeCheck('644', '649')) {
+    //     if(cardLength === 16 || cardLength === 19) {
+    //         return 'Discover';
+    //     }
+
 };
 
 var assert = function(outcome, description) {
@@ -53,29 +94,29 @@ var assert = function(outcome, description) {
     }
 };
 
-// Diner's Club Tests
+// // Diner's Club Tests
 var dC = "Diner's Club";
 assert((detectNetwork('38345678901234') === dC), "Expected " + dC +" but got " + detectNetwork('38345678901234') );
 assert((detectNetwork('39345678901234') === dC), "Expected " + dC +" but got " + detectNetwork('39345678901234') );
 
-// American Express Tests
+// // American Express Tests
 var aE = "American Express";
 assert((detectNetwork('343456789012345') === aE), "Expected " + aE +" but got " + detectNetwork('343456789012345') );
 assert((detectNetwork('373456789012345') === aE), "Expected " + aE +" but got " + detectNetwork('373456789012345') );
 
-// Visa Tests
-var visa = "Visa";
-assert((detectNetwork('4123456789012') === visa), "Expected " + visa +" but got " + detectNetwork('4123456789012') );
-assert((detectNetwork('4123456789012345') === visa), "Expected " + visa +" but got " + detectNetwork('4123456789012345') );
-assert((detectNetwork('4123456789012345678') === visa), "Expected " + visa +" but got " + detectNetwork('4123456789012345678') );
+// // Visa Tests
+// var visa = "Visa";
+// assert((detectNetwork('4123456789012') === visa), "Expected " + visa +" but got " + detectNetwork('4123456789012') );
+// assert((detectNetwork('4123456789012345') === visa), "Expected " + visa +" but got " + detectNetwork('4123456789012345') );
+// assert((detectNetwork('4123456789012345678') === visa), "Expected " + visa +" but got " + detectNetwork('4123456789012345678') );
 
-// MasterCard Tests
-var mC = "MasterCard";
-assert((detectNetwork('5112345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5112345678901234') );
-assert((detectNetwork('5212345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5212345678901234') );
-assert((detectNetwork('5312345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5312345678901234') );
-assert((detectNetwork('5412345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5412345678901234') );
-assert((detectNetwork('5512345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5512345678901234') );
+// // MasterCard Tests
+// var mC = "MasterCard";
+// assert((detectNetwork('5112345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5112345678901234') );
+// assert((detectNetwork('5212345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5212345678901234') );
+// assert((detectNetwork('5312345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5312345678901234') );
+// assert((detectNetwork('5412345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5412345678901234') );
+// assert((detectNetwork('5512345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5512345678901234') );
 
 
 var testArray = [   '38345678901234',
@@ -94,7 +135,7 @@ var testArray = [   '38345678901234',
 // Invoke All Tests
 var invokeTests = function() {
     for (i = 0; i < testArray.length; i++ ) {
-    var cardType = detectNetwork(testArray[i]);
+    var cardType = assert(detectNetwork(testArray[i]));
     console.log(cardType);
-}
+    }
 }
