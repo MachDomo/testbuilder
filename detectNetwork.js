@@ -78,11 +78,13 @@ var detectNetwork = function(cardNumber) {
 
 
   
-    //Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
-    // } else if (cardPrefixCheck('6011') || cardPrefixCheck('65') || cardPrefixRangeCheck('644', '649')) {
-    //     if(cardLength === 16 || cardLength === 19) {
-    //         return 'Discover';
-    //     }
+  //Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
+  var discoverArray = [6011, 644, 645, 646, 647, 648, 649, 65];
+
+  if(cardPrefixArrayCheck(discoverArray) && cardLengthArrayCheck([16, 19])) {
+    return 'Discover';
+  }
+    
 
 };
 
