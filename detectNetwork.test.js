@@ -206,7 +206,7 @@ describe('Maestro', function() {
 
 
 // Excellent work! Write your own tests and make them pass for the last two networks:
-describe('should support China UnionPay')
+describe('China UnionPay', function() {
 // China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
   var should = chai.should();
   var chinaUPrefix = [];
@@ -241,11 +241,32 @@ describe('should support China UnionPay')
 
     }
   }
+});
 
-describe('should support Switch')
+describe('Switch', function () {
 // Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+  var should = chai.should();
+  var switchPrefix = [4903, 4905, 4911, 4936, 564182, 633110, 6333, 6759];
+  var switchLength = [16, 18, 19];
+  
+  for(var i = 0; i < switchPrefix.length; i++) {
+    for(var j = 0; j < switchLength.length; j++) {
+      (function(prefix, length){
+        // Create the card Number to test
+        var cardNumber = "123456789012345"; // 19 max length - 4 min length = 15 max non prefix characters
+        var cardGenerate = cardNumber.substr(0, length - prefix.toString().length);
+        cardGenerate = prefix + cardGenerate;
+        // Create the Test
+        it(('has a prefix of ' + prefix + ' and a length of ' + length), function() {
+          detectNetwork(cardGenerate).should.equal('Switch');
+        });
 
+      })(switchPrefix[i], switchLength[j])
 
+    }
+  }
+
+});
 
 // Heads up! Switch and Visa seem to have some overlapping card numbers - in any apparent conflict, you should choose the network with the longer prefix.
 

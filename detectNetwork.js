@@ -55,18 +55,13 @@ var detectNetwork = function(cardNumber) {
 
   // The American Express network always starts with a 34 or 37 and is 15 digits long
   var amexPrefix = [34, 37];
-  if((cardPrefixArrayCheck(amexPrefix))) {
+  if(cardPrefixArrayCheck(amexPrefix)) {
     return 'American Express';
   }
 
 
 
-  //Visa always has a prefix of 4 and a length of 13, 16, or 19.
   
-  if(cardPrefixCheck(4) && cardLengthArrayCheck([13, 16, 19])) {
-    return 'Visa';
-  }
-
 
 
 
@@ -113,7 +108,28 @@ var detectNetwork = function(cardNumber) {
     return 'China UnionPay';
 
   }
+
+  // Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+  
+  var switchPrefix = [4903, 4905, 4911, 4936, 564182, 633110, 6333, 6759];
+  var switchLength = [16, 18, 19];
+
+  if(cardPrefixArrayCheck(switchPrefix) && cardLengthArrayCheck(switchLength)) {
+    return 'Switch';
+  }
+  
+  //Visa always has a prefix of 4 and a length of 13, 16, or 19. Moved under switch to avoid overlapping numbers
+  
+  if(cardPrefixCheck(4) && cardLengthArrayCheck([13, 16, 19])) {
+    
+    return 'Visa';
+    
+  }
+
+
   return 'invalid';
+
+
 };
 
 
