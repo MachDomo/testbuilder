@@ -181,7 +181,24 @@ describe('Discover', function() {
 describe('Maestro', function() {
   // Write full test coverage for the Maestro card
   var should = chai.should();
-  it('')
+  var maestroPrefix = ['5018', '5020', '5038', '6304'];
+  var maestroLengthArray = [12, 13, 14, 15, 16, 17, 18, 19];
+  
+
+
+  for(var i = 0; i < maestroPrefix.length; i ++) {
+    for(var j = 0; j < maestroLengthArray.length; j++) {
+      (function(prefix, length) {
+        var cardNumber = '567890123456789';
+        var cardGenerate = cardNumber.substr(0, length - 1);
+            cardGenerate = prefix.concat(cardGenerate);
+        it('has a prefix of ' + prefix + ' and a length of ' + length, function() {
+          detectNetwork(cardGenerate).should.equal('Maestro');
+        });
+
+      })(maestroPrefix[i], maestroLengthArray[j]);
+    }
+  }
 });
 
 describe('should support China UnionPay')
