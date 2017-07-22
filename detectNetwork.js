@@ -14,14 +14,23 @@ var detectNetwork = function(cardNumber) {
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
   var cardArray = Array.from(cardNumber);
+  var cardLength = cardArray.length;
 
   if(cardArray[0] == 3) {
-    if((cardArray[1] == 8 || cardArray[1] == 9) && cardArray.length === 14) {
+    if((cardArray[1] == 8 || cardArray[1] == 9) && cardLength === 14) {
         return "Diner's Club";
-    } else if((cardArray[1] == 4 || cardArray[1] == 7) && cardArray.length === 15) {
+
+    } else if((cardArray[1] == 4 || cardArray[1] == 7) && cardLength === 15) {
         return "American Express";
+    }
+    } else if (cardArray[0] == 4) {
+        if (cardLength === 13 || cardLength === 16 || cardLength === 19) {
+            return "Visa";
+        }
+    } else if (cardArray[0] == 5) {
+        if (cardArray[1] >= 1 && cardArray[1] <= 6 && cardLength === 16) {
+            return "MasterCard";
     }
   }
 };
-
 
