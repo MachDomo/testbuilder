@@ -84,8 +84,13 @@ var detectNetwork = function(cardNumber) {
   if(cardPrefixArrayCheck(discoverArray) && cardLengthArrayCheck([16, 19])) {
     return 'Discover';
   }
-    
+  //Maestro always has a prefix of 5018, 5020, 5038, or 6304, and a length of 12-19.   
+  var maestroPrefix = [5018, 5020, 5038, 6304];
+  var maestroLengthArray = [12, 13, 14, 15, 16, 17, 18, 19];
 
+  if(cardPrefixArrayCheck(maestroPrefix) && cardLengthArrayCheck(maestroLengthArray)) {
+    return 'Maestro';
+  }
 };
 
 var assert = function(outcome, description) {
