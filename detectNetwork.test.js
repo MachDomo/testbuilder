@@ -156,10 +156,12 @@ describe('Discover', function() {
   });
 
   for (var prefix = 644; prefix <= 649; prefix++) {
-    var cardNumber16 = prefix + "4567890123456";
-    var cardNumber19 = cardNumber16 + "789";
+    
 
     (function(prefix) {
+      var cardNumber16 = prefix + "4567890123456";
+      var cardNumber19 = cardNumber16 + "789";
+      
       it('has a prefix of ' + prefix + ' and a length of 16', function() {
         detectNetwork(cardNumber16).should.equal('Discover');
       });
@@ -203,6 +205,6 @@ describe('Maestro', function() {
   }
 });
 
-describe('should support China UnionPay')
-describe('should support Switch')
+//describe('should support China UnionPay')
+//describe('should support Switch')
 
