@@ -34,3 +34,48 @@ var detectNetwork = function(cardNumber) {
   }
 };
 
+function assert(outcome, description) {
+    if(outcome === true) {
+        return 'passed';
+    } else {
+        return description;
+    }
+}
+
+// Diner's Club Tests
+var dC = "Diner's Club";
+assert((detectNetwork('38345678901234') === dC), "Expected " + dC +" but got " + detectNetwork('38345678901234') );
+assert((detectNetwork('39345678901234') === dC), "Expected " + dC +" but got " + detectNetwork('39345678901234') );
+
+// American Express Tests
+var aE = "American Express";
+assert((detectNetwork('343456789012345') === aE), "Expected " + aE +" but got " + detectNetwork('343456789012345') );
+assert((detectNetwork('373456789012345') === aE), "Expected " + aE +" but got " + detectNetwork('373456789012345') );
+
+// Visa Tests
+var visa = "Visa";
+assert((detectNetwork('4123456789012') === visa), "Expected " + visa +" but got " + detectNetwork('4123456789012') );
+assert((detectNetwork('4123456789012345') === visa), "Expected " + visa +" but got " + detectNetwork('4123456789012345') );
+assert((detectNetwork('4123456789012345678') === visa), "Expected " + visa +" but got " + detectNetwork('4123456789012345678') );
+
+// MasterCard Tests
+var mC = "MasterCard";
+assert((detectNetwork('5112345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5112345678901234') );
+assert((detectNetwork('5212345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5212345678901234') );
+assert((detectNetwork('5312345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5312345678901234') );
+assert((detectNetwork('5412345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5412345678901234') );
+assert((detectNetwork('5512345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5512345678901234') );
+
+
+var = testArray [
+                    38345678901234,
+                    39345678901234,
+                    343456789012345,
+                    373456789012345,
+                    4123456789012345,
+                    4123456789012345678,
+                    5112345678901234,
+                    5212345678901234,
+                    5312345678901234,
+                    5412345678901234,
+                    5512345678901234   ];
