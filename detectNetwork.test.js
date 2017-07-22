@@ -159,9 +159,9 @@ describe('Discover', function() {
     
 
     (function(prefix) {
-      var cardNumber16 = prefix + "4567890123456";
+      var cardNumber16 = prefix + "4567890123456"; // Why did this solve the problem?
       var cardNumber19 = cardNumber16 + "789";
-      
+
       it('has a prefix of ' + prefix + ' and a length of 16', function() {
         detectNetwork(cardNumber16).should.equal('Discover');
       });
@@ -205,6 +205,15 @@ describe('Maestro', function() {
   }
 });
 
-//describe('should support China UnionPay')
-//describe('should support Switch')
 
+// Excellent work! Write your own tests and make them pass for the last two networks:
+describe('should support China UnionPay')
+// China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+describe('should support Switch')
+// Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+
+
+
+// Heads up! Switch and Visa seem to have some overlapping card numbers - in any apparent conflict, you should choose the network with the longer prefix.
+
+// When detectNetwork returns the correct network for every prefix and length combination for Diner's Club, American Express, Visa, MasterCard, Discover, Maestro, China UnionPay, and Switch you can invoke nextStep: 
