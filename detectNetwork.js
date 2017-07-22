@@ -21,17 +21,28 @@ var detectNetwork = function(cardNumber) {
         return "Diner's Club";
 
     } else if((cardArray[1] == 4 || cardArray[1] == 7) && cardLength === 15) {
-        return "American Express";
+            return "American Express";
     }
     } else if (cardArray[0] == 4) {
-        if (cardLength === 13 || cardLength === 16 || cardLength === 19) {
-            return "Visa";
+            if (cardLength === 13 || cardLength === 16 || cardLength === 19) {
+                return "Visa";
         }
     } else if (cardArray[0] == 5) {
-        if (cardArray[1] >= 1 && cardArray[1] <= 6 && cardLength === 16) {
-            return "MasterCard";
-    } else return "Invalid Card Number";
-  }
+            if (cardArray[1] >= 1 && cardArray[1] <= 6 && cardLength === 16) {
+                return "MasterCard";
+            }
+
+    } else if (cardArray[0] == 6) {
+                if (cardArray[1] == 0) {
+                    if(cardArray[2] == 1) {
+                        if(cardArray[3] == 1) {
+                            if(cardLength === 16 || cardLength === 19) {
+                                return "Discover";
+                            }
+                        }
+                    }
+        }
+    } else return "Invalid Card";
 };
 
 var assert = function(outcome, description) {
