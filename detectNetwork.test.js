@@ -163,7 +163,7 @@ describe('Discover', function() {
         detectNetwork(cardNumber16).should.equal('Discover');
       });
       it('has a prefix of ' + prefix + ' and a length of 19', function() {
-        detectNetwork(cardNumber19).should.equal('Discover)');
+        detectNetwork(cardNumber19).should.equal('Discover');
       });
     })(prefix)
   };
