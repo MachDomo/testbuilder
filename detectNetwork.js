@@ -30,7 +30,7 @@ var detectNetwork = function(cardNumber) {
     } else if (cardArray[0] == 5) {
         if (cardArray[1] >= 1 && cardArray[1] <= 6 && cardLength === 16) {
             return "MasterCard";
-    }
+    } else return "Invalid Card Number";
   }
 };
 
