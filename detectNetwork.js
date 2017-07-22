@@ -91,6 +91,7 @@ var detectNetwork = function(cardNumber) {
   if(cardPrefixArrayCheck(maestroPrefix) && cardLengthArrayCheck(maestroLengthArray)) {
     return 'Maestro';
   }
+  return 'invalid';
 };
 
 var assert = function(outcome, description) {
