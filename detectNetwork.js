@@ -34,13 +34,13 @@ var detectNetwork = function(cardNumber) {
   }
 };
 
-function assert(outcome, description) {
+var assert = function(outcome, description) {
     if(outcome === true) {
         return 'passed';
     } else {
         return description;
     }
-}
+};
 
 // Diner's Club Tests
 var dC = "Diner's Club";
@@ -67,15 +67,23 @@ assert((detectNetwork('5412345678901234') === mC), "Expected " + mC +" but got "
 assert((detectNetwork('5512345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5512345678901234') );
 
 
-var = testArray [
-                    38345678901234,
-                    39345678901234,
-                    343456789012345,
-                    373456789012345,
-                    4123456789012345,
-                    4123456789012345678,
-                    5112345678901234,
-                    5212345678901234,
-                    5312345678901234,
-                    5412345678901234,
-                    5512345678901234   ];
+var testArray = [   '38345678901234',
+                    '39345678901234',
+                    '343456789012345',
+                    '373456789012345',
+                    '4123456789012',
+                    '4123456789012345',
+                    '4123456789012345678',
+                    '5112345678901234',
+                    '5212345678901234',
+                    '5312345678901234',
+                    '5412345678901234',
+                    '5512345678901234'  ];
+
+// Invoke All Tests
+var invokeTests = function() {
+    for (i = 0; i < testArray.length; i++ ) {
+    var cardType = detectNetwork(testArray[i]);
+    console.log(cardType);
+}
+}
