@@ -139,21 +139,43 @@ describe('MasterCard', function() {
  
 });
 
+//Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
+
+
 describe('Discover', function() {
   // Tests without a function will be marked as "pending" and not run
   // Implement these tests (and others) and make them pass!
   var should = chai.should();
   it('has a prefix of 6011 and a length of 16', function() {
-    detectNetwork('6011567890123456').should.equal("Discover");
+    detectNetwork('6011567890123456').should.equal('Discover');
   });
   it('has a prefix of 6011 and a length of 19', function() {
-    detectNetwork('6011567890123456789').should.equal("Discover");
+    detectNetwork('6011567890123456789').should.equal('Discover');
   })
+
+  for (var prefix = 644; prefix <= 649; prefix++) {
+    var cardNumber16 = prefix + "4567890123456";
+    var cardNumber19 = cardNumber16 + "789";
+    
+  (function(prefix) {
+    it('has a prefix of ' + prefix + ' and a length of 16', function() {
+      detectNetwork(cardNumber16).should.equal('Discover');
+    });
+    it('has a prefix of ' + prefix + ' and a length of 19', function() {
+      detectNetwork(cardNumber19).should.equal('Discover)');
+    });
+  })(prefix)
+}
 });
+
+//Maestro always has a prefix of 5018, 5020, 5038, or 6304, and a length of 12-19.
 
 describe('Maestro', function() {
   // Write full test coverage for the Maestro card
+  var should = chai.should();
+  it('')
 });
 
 describe('should support China UnionPay')
 describe('should support Switch')
+
