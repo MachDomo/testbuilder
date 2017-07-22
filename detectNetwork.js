@@ -91,26 +91,50 @@ var detectNetwork = function(cardNumber) {
   if(cardPrefixArrayCheck(maestroPrefix) && cardLengthArrayCheck(maestroLengthArray)) {
     return 'Maestro';
   }
+
+
+  // China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+  var chinaUPrefix = [];
+  var chinaULength = [16, 17, 18, 19];
+
+  for(var i = 622126; i <= 622925; i ++) {
+    chinaUPrefix.push(i);
+  }
+
+  for(var i = 624; i <= 626; i ++ ) {
+    chinaUPrefix.push(i);
+  }
+
+  for(var i = 6282; i <= 6288; i++) {
+    chinaUPrefix.push(i);
+  }
+
+  if(cardPrefixArrayCheck(chinaUPrefix) && cardLengthArrayCheck(chinaULength)) {
+    return 'China UnionPay';
+
+  }
   return 'invalid';
 };
 
-var assert = function(outcome, description) {
-    if(outcome === true) {
-        return 'passed';
-    } else {
-        return description;
-    }
-};
+
+
+// var assert = function(outcome, description) {
+//     if(outcome === true) {
+//         return 'passed';
+//     } else {
+//         return description;
+//     }
+// };
 
 // // Diner's Club Tests
-var dC = "Diner's Club";
-assert((detectNetwork('38345678901234') === dC), "Expected " + dC +" but got " + detectNetwork('38345678901234') );
-assert((detectNetwork('39345678901234') === dC), "Expected " + dC +" but got " + detectNetwork('39345678901234') );
+// var dC = "Diner's Club";
+// assert((detectNetwork('38345678901234') === dC), "Expected " + dC +" but got " + detectNetwork('38345678901234') );
+// assert((detectNetwork('39345678901234') === dC), "Expected " + dC +" but got " + detectNetwork('39345678901234') );
 
-// // American Express Tests
-var aE = "American Express";
-assert((detectNetwork('343456789012345') === aE), "Expected " + aE +" but got " + detectNetwork('343456789012345') );
-assert((detectNetwork('373456789012345') === aE), "Expected " + aE +" but got " + detectNetwork('373456789012345') );
+// // // American Express Tests
+// var aE = "American Express";
+// assert((detectNetwork('343456789012345') === aE), "Expected " + aE +" but got " + detectNetwork('343456789012345') );
+// assert((detectNetwork('373456789012345') === aE), "Expected " + aE +" but got " + detectNetwork('373456789012345') );
 
 // // Visa Tests
 // var visa = "Visa";
@@ -127,23 +151,23 @@ assert((detectNetwork('373456789012345') === aE), "Expected " + aE +" but got " 
 // assert((detectNetwork('5512345678901234') === mC), "Expected " + mC +" but got " + detectNetwork('5512345678901234') );
 
 
-var testArray = [   '38345678901234',
-                    '39345678901234',
-                    '343456789012345',
-                    '373456789012345',
-                    '4123456789012',
-                    '4123456789012345',
-                    '4123456789012345678',
-                    '5112345678901234',
-                    '5212345678901234',
-                    '5312345678901234',
-                    '5412345678901234',
-                    '5512345678901234'  ];
+// var testArray = [   '38345678901234',
+//                     '39345678901234',
+//                     '343456789012345',
+//                     '373456789012345',
+//                     '4123456789012',
+//                     '4123456789012345',
+//                     '4123456789012345678',
+//                     '5112345678901234',
+//                     '5212345678901234',
+//                     '5312345678901234',
+//                     '5412345678901234',
+//                     '5512345678901234'  ];
 
-// Invoke All Tests
-var invokeTests = function() {
-    for (i = 0; i < testArray.length; i++ ) {
-    var cardType = assert(detectNetwork(testArray[i]));
-    console.log(cardType);
-    }
-}
+// // Invoke All Tests
+// var invokeTests = function() {
+//     for (i = 0; i < testArray.length; i++ ) {
+//     var cardType = assert(detectNetwork(testArray[i]));
+//     console.log(cardType);
+//     }
+// }

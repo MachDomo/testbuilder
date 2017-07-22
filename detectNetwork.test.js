@@ -159,7 +159,7 @@ describe('Discover', function() {
     
 
     (function(prefix) {
-      var cardNumber16 = prefix + "4567890123456"; // Why did this solve the problem?
+      var cardNumber16 = prefix + "4567890123456"; // Why did moving this into the IIFE solve the problem?
       var cardNumber19 = cardNumber16 + "789";
 
       it('has a prefix of ' + prefix + ' and a length of 16', function() {
@@ -189,12 +189,11 @@ describe('Maestro', function() {
   var maestroLengthArray = [12, 13, 14, 15, 16, 17, 18, 19];
   
 
-
   for(var i = 0; i < maestroPrefix.length; i ++) {
     for(var j = 0; j < maestroLengthArray.length; j++) {
       (function(prefix, length) {
         var cardNumber = '567890123456789';
-        var cardGenerate = cardNumber.substr(0, length - 4);
+        var cardGenerate = cardNumber.substr(0, length - prefix.toString().length);
             cardGenerate = prefix + cardGenerate;
         it(('has a prefix of ' + prefix + ' and a length of ' + length), function() {
           detectNetwork(cardGenerate).should.equal('Maestro');
@@ -209,6 +208,40 @@ describe('Maestro', function() {
 // Excellent work! Write your own tests and make them pass for the last two networks:
 describe('should support China UnionPay')
 // China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+  var should = chai.should();
+  var chinaUPrefix = [];
+  var chinaULength = [16, 17, 18, 19]
+
+  for(var i = 622126; i <= 622925; i ++) {
+    chinaUPrefix.push(i);
+  }
+
+  for(var i = 624; i <= 626; i ++ ) {
+    chinaUPrefix.push(i);
+  }
+
+  for(var i = 6282; i <= 6288; i++) {
+    chinaUPrefix.push(i);
+
+  }
+
+  for(var i = 0; i < chinaUPrefix.length; i++) {
+    for(var j = 0; j < chinaULength.length; j++) {
+      (function(prefix, length){
+        // Create the card Number to test
+        var cardNumber = "1234567890123456"; // 19 max length - 3 min length = 16 max non prefix characters
+        var cardGenerate = cardNumber.substr(0, length - prefix.toString().length);
+        cardGenerate = prefix + cardGenerate;
+        // Create the Test
+        it(('has a prefix of ' + prefix + ' and a length of ' + length), function() {
+          detectNetwork(cardGenerate).should.equal('China UnionPay');
+        });
+
+      })(chinaUPrefix[i], chinaULength[j])
+
+    }
+  }
+
 describe('should support Switch')
 // Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
 
